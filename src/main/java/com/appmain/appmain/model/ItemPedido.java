@@ -1,6 +1,11 @@
 package com.appmain.appmain.model;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 //import java.util.ArrayList;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,16 +29,16 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ItemPedido{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemId;
     private int quantidade;
-    //@Column(nullable = true, precision = 10, scale = 2)
     @Column(nullable = true)
     private Double preco;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "itemPedido")
     private List<Produto> produtos;
 
